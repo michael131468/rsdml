@@ -14,13 +14,15 @@ func main() {
 	}
 
 	for _, dir := range os.Args[1:] {
-		err := rsdml.RecurseDirectory(dir)
+		dirs_touched, err := rsdml.RecurseDirectory(dir)
 		if err != nil {
 			fmt.Println(err)
 			program_result = 1
+		}
+		for _, dir := range dirs_touched {
+			fmt.Printf("Touched %s\n", dir)
 		}
 	}
 
 	os.Exit(program_result)
 }
-

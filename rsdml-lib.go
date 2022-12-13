@@ -43,16 +43,16 @@ func UpdateDirectory(dir string) error {
 	return nil
 }
 
-func RecurseDirectory(root_dir string) error {
+func RecurseDirectory(root_dir string) ([]string, error) {
 	// Input Sanitisation
 	root_dir = filepath.Clean(root_dir)
 	fileInfo, err := os.Stat(root_dir)
 	if err != nil {
-		return fmt.Errorf("Path is not a directory or cannot be accessed: %s: %s", root_dir, err)
+		return nil, fmt.Errorf("Path is not a directory or cannot be accessed: %s: %s", root_dir, err)
 	}
 
-	if ! fileInfo.IsDir() {
-		return fmt.Errorf("Path is not a directory: %s", root_dir)
+	if !fileInfo.IsDir() {
+		return nil, fmt.Errorf("Path is not a directory: %s", root_dir)
 	}
 
 	// Collect list of directories in tree
@@ -70,7 +70,7 @@ func RecurseDirectory(root_dir string) error {
 	})
 
 	if err != nil {
-		return fmt.Errorf("Cannot traverse path: %s: %s", root_dir, err)
+		return nil, fmt.Errorf("Cannot traverse path: %s: %s", root_dir, err)
 	}
 
 	// Sort dirs from bottom to top (deepest first)
@@ -82,15 +82,18 @@ func RecurseDirectory(root_dir string) error {
 
 	// Adjust mtime values for each dir (bottom to top)
 	failures := 0
-	for _, subdir := range dirs {
-		err = UpdateDirectory(subdir)
+	directories_touched := []string{}
+	for _, dir := range dirs {
+		err = UpdateDirectory(dir)
 		if err != nil {
 			failures = 1
+		} else {
+			directories_touched = append(directories_touched, dir)
 		}
 	}
 	if failures == 1 {
-		return fmt.Errorf("Could not update entire tree of: %s", root_dir)
+		return directories_touched, fmt.Errorf("Could not update entire tree of: %s", root_dir)
 	}
 
-	return nil
+	return directories_touched, nil
 }
