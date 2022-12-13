@@ -21,13 +21,18 @@ jobs:
       with:
         go-version: 1.19
 
-    - name: Build
+    - name: Build amd64 linux binaries
       working-directory: ./cmd
-      run: go build -v rsdml.go
+      run: GOOS=linux GOARCH=amd64 go build -v -o rsdml.amd64 rsdml.go
 
+    - name: Build arm64 linux binaries
+      working-directory: ./cmd
+      run: GOOS=linux GOARCH=arm64 go build -v -o rsdml.arm64 rsdml.go
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v3
       with:
         name: rsdml
-        path: ./cmd/rsdml
+        path: |
+          ./cmd/rsdml.amd64
+          ./cmd/rsdml.arm64
