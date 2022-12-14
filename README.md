@@ -65,6 +65,22 @@ it can be fragile to do this via shell scripts as it is dependent on the host sy
 utils (busybox vs util-linux, bash vs dash, etc). Having a statically compiled tool
 makes it highly portable and less fragile.
 
+## Isn't This Race Condition Prone?
+
+Yes. If files in the directory tree are being updated/changed while the program runs,
+it doesn't handle that. The program works in two stages. First by determining the set
+of directories in the directory tree from bottom to top. Second by iterating through
+that determined set of directories (bottom to top) and updating the mtime values with
+consideration to the immediate children of the directory at that point in time.
+
+New directories created after the first stage are not accounted for. Files and
+directories changed after step 2 occurs for a directory is run are not accounted for.
+
+Deleted directories after step 1 are handled aas gracefully as possible.
+
+In my opinion, the result might be not perfect but it does a best effort attempt that is
+reasonable.
+
 ## Usage
 
 Coming soon.
