@@ -58,6 +58,12 @@ $ tree -D
         ├── [Dec 11 09:00]  newest.txt
         └── [Dec 12 09:00]  oldest.txt
 ```
+## Why Not a Shell Script?
+
+There are many alternatives to do this like using [shell scripts][4]. In my opinion,
+it can be fragile to do this via shell scripts as it is dependent on the host system
+utils (busybox vs util-linux, bash vs dash, etc). Having a statically compiled tool
+makes it highly portable and less fragile.
 
 ## Usage
 
@@ -70,3 +76,4 @@ See [LICENSE](LICENSE) file.
 [1]: https://www.gnu.org/software/coreutils/manual/html_node/File-timestamps.html
 [2]: https://stackoverflow.com/questions/3620684/directory-last-modified-date
 [3]: https://httpd.apache.org/docs/2.4/mod/mod_autoindex.html
+[4]: https://unix.stackexchange.com/questions/1524/how-do-i-change-folder-timestamps-recursively-to-the-newest-file
