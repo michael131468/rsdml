@@ -1,7 +1,7 @@
 # RSDML (Recursively Set Directory MTime to Latest)
 
-A small tool to update the [mtime][1] of directories in a directory tree to
-match the newest mtime attributes of the files within. 
+A small tool to update the modification time ([mtime][1]) of directories in a
+directory tree to match the newest mtime attributes of the files within. 
 
 ## Why?
 
