@@ -76,14 +76,39 @@ consideration to the immediate children of the directory at that point in time.
 New directories created after the first stage are not accounted for. Files and
 directories changed after step 2 occurs for a directory is run are not accounted for.
 
-Deleted directories after step 1 are handled aas gracefully as possible.
+Deleted directories after step 1 are handled as gracefully as possible.
 
 In my opinion, the result might be not perfect but it does a best effort attempt that is
 reasonable.
 
 ## Usage
 
-Coming soon.
+Download the binary (rsdml.amd64) from the [releases][5] if you're running on an x86_64
+machine (the typical use case). If you're running on an aarch64 host, you need to use
+the rsdml.arm64 binary instead.
+
+Rename the binary to rsdml and make it executable. You can then call it and pass the
+path to the root directory you want to process as the parameter. You can pass multiple
+directories and they will be processed iteratively.
+
+Example:
+
+```
+$ wget 'https://github.com/michael131468/rsdml/latest/download/rsdml.amd64'
+$ mv rsdml.amd64 rsdml
+$ chmod +x rsdml
+
+$ ./rsdml 
+Usage: ./rsdml [directories...]
+
+$ ./rsdml x
+Touched x/y/z/a/b/c
+Touched x/y/z/a/b
+Touched x/y/z/a
+Touched x/y/z
+Touched x/y
+Touched x
+```
 
 ## License
 
@@ -93,3 +118,4 @@ See [LICENSE](LICENSE) file.
 [2]: https://stackoverflow.com/questions/3620684/directory-last-modified-date
 [3]: https://httpd.apache.org/docs/2.4/mod/mod_autoindex.html
 [4]: https://unix.stackexchange.com/questions/1524/how-do-i-change-folder-timestamps-recursively-to-the-newest-file
+[5]: https://github.com/michael131468/rsdml/releases/latest
