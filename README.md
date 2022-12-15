@@ -94,7 +94,7 @@ directories and they will be processed iteratively.
 Example:
 
 ```
-$ wget 'https://github.com/michael131468/rsdml/latest/download/rsdml.amd64'
+$ wget 'https://github.com/michael131468/rsdml/releases/latest/download/rsdml.amd64'
 $ mv rsdml.amd64 rsdml
 $ chmod +x rsdml
 
