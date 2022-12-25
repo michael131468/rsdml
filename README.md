@@ -114,6 +114,9 @@ Touched x
 
 See [LICENSE](LICENSE) file.
 
+If you wish to distribute or embed the rsdml binary, please ensure the LICENSE
+is obeyed.
+
 [1]: https://www.gnu.org/software/coreutils/manual/html_node/File-timestamps.html
 [2]: https://stackoverflow.com/questions/3620684/directory-last-modified-date
 [3]: https://httpd.apache.org/docs/2.4/mod/mod_autoindex.html
